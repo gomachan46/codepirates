@@ -1,8 +1,4 @@
-class Bowring
-  attr_reader :score
-  def initialize
-    @score = 0 
-  end
+class Bowling
   def calcScore score
     score_rev = score.reverse
     result = score_rev.each_with_index.inject(0){|total_score,(frame,index)|
