@@ -2,7 +2,7 @@
 require '../q3'
 require 'pry'
 describe "q3" do
-  let(:score) {[[3,5],['strike'],[5,'-'],[3,1],[5,'spare'],[9,'-'],[6,'spare'],['G','-'],[1,'spare'],['strike','strike','G']]}
+  let(:score) {[[3,5],[10],[5,0],[3,1],[5,5],[9,0],[6,4],[0,0],[1,9],[10,10,0]]}
   before do
     @bowling = Bowling.new
   end
@@ -13,7 +13,19 @@ describe "q3" do
       end
     end
     context "満点を投げた時" do
-      score = [['strike'],['strike'],['strike'],['strike'],['strike'],['strike'],['strike'],['strike'],['strike'],['strike','strike','strike']]
+      score = [[10],[10],[10],[10],[10],[10],[10],[10],[10],[10,10,10]]
+      it "300が返ってくる" do
+        @bowling.calcScore(score).should == 300
+      end
+    end
+    context "最終フレームがスペアだった時" do
+      score = [[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[5,5,5]]
+      it "15が返ってくる" do
+        @bowling.calcScore(score).should == 15
+      end
+    end
+    describe "ストライクの表記が[10,0]の場合でもちゃんと動作する" do
+      score = [[10,0],[10,0],[10,0],[10,0],[10,0],[10,0],[10,0],[10,0],[10,0],[10,10,10]]
       it "300が返ってくる" do
         @bowling.calcScore(score).should == 300
       end
